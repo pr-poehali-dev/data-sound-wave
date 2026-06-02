@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "name": "Получить все товары",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {"products": []},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Фильтр по категории",
+      "method": "GET",
+      "path": "/?category=battery_lead",
+      "expectedStatus": 200,
+      "expectedBody": {"products": []},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

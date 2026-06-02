@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { ArrowRight, ChevronRight, Menu, X, Battery, Zap, RefreshCw, Recycle } from "lucide-react"
 import { motion, type Variants } from "framer-motion"
+import { Link } from "react-router-dom"
 import { GridMotion } from "./ui/grid-motion"
 import { cn } from "@/lib/utils"
 
@@ -125,7 +126,7 @@ const transitionVariants = {
 }
 
 const menuItems = [
-  { name: "Каталог", href: "#catalog" },
+  { name: "Каталог", href: "/catalog" },
   { name: "Услуги", href: "#services" },
   { name: "О компании", href: "#about" },
   { name: "Контакты", href: "#contact" },
@@ -226,7 +227,7 @@ const Logo = ({ className }: { className?: string }) => {
       <div className="bg-orange-500 rounded-lg p-2">
         <Battery className="h-6 w-6 text-white" />
       </div>
-      <span className="text-xl font-bold">АккумТех</span>
+      <span className="text-xl font-bold">Аккумофф</span>
     </div>
   )
 }
@@ -344,9 +345,11 @@ export default function SoftwareDevelopmentWebsite() {
                       <span className="text-nowrap">Получить консультацию</span>
                     </Button>
                   </div>
-                  <Button key={2} size="lg" variant="ghost" className="h-10.5 rounded-xl px-5 hover:text-orange-500">
-                    <span className="text-nowrap">Смотреть каталог</span>
-                  </Button>
+                  <Link key={2} to="/catalog">
+                    <Button size="lg" variant="ghost" className="h-10.5 rounded-xl px-5 hover:text-orange-500">
+                      <span className="text-nowrap">Смотреть каталог</span>
+                    </Button>
+                  </Link>
                 </AnimatedGroup>
               </div>
             </div>
@@ -422,7 +425,7 @@ export default function SoftwareDevelopmentWebsite() {
           <div className="mx-auto max-w-5xl px-6">
             <div className="text-center">
               <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
-                Почему выбирают <span className="text-orange-500">АккумТех</span>
+                Почему выбирают <span className="text-orange-500">Аккумофф</span>
               </h2>
               <p className="mt-4 text-muted-foreground">
                 16 лет работаем с промышленными аккумуляторами — знаем каждый нюанс восстановления и эксплуатации.
@@ -612,6 +615,14 @@ export default function SoftwareDevelopmentWebsite() {
                 ))}
               </div>
             </div>
+
+            <div className="text-center mt-10">
+              <Link to="/catalog">
+                <Button size="lg" className="rounded-xl px-8 bg-orange-500 hover:bg-orange-600 text-white">
+                  Смотреть весь каталог
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -789,7 +800,7 @@ export default function SoftwareDevelopmentWebsite() {
                   <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="break-all">info@akkumtech.ru</span>
+                  <span className="break-all">info@akkumoff.ru</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -810,7 +821,7 @@ export default function SoftwareDevelopmentWebsite() {
 
           <div className="mt-12 pt-8 border-t border-orange-200">
             <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-              <div className="text-sm text-muted-foreground">© 2026 АккумТех. Все права защищены.</div>
+              <div className="text-sm text-muted-foreground">© 2026 Аккумофф. Все права защищены.</div>
               <div className="flex flex-wrap justify-center sm:justify-end gap-x-6 gap-y-2 text-sm">
                 <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
                   Политика конфиденциальности

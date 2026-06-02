@@ -1,0 +1,21 @@
+{
+  "tests": [
+    {
+      "name": "Получить список товаров (без токена — 401)",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401,
+      "expectedBody": {"error": "Unauthorized"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Получить список товаров (с токеном)",
+      "method": "GET",
+      "path": "/",
+      "headers": {"X-Admin-Token": "akkumoff-admin-2026"},
+      "expectedStatus": 200,
+      "expectedBody": {"products": []},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
