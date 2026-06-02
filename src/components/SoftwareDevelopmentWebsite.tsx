@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
-import { ArrowRight, ChevronRight, Menu, X, Code, Zap, Settings2, Sparkles } from "lucide-react"
+import { ArrowRight, ChevronRight, Menu, X, Battery, Zap, RefreshCw, Recycle } from "lucide-react"
 import { motion, type Variants } from "framer-motion"
 import { GridMotion } from "./ui/grid-motion"
 import { cn } from "@/lib/utils"
@@ -125,9 +125,9 @@ const transitionVariants = {
 }
 
 const menuItems = [
+  { name: "Каталог", href: "#catalog" },
   { name: "Услуги", href: "#services" },
-  { name: "Решения", href: "#solutions" },
-  { name: "О нас", href: "#about" },
+  { name: "О компании", href: "#about" },
   { name: "Контакты", href: "#contact" },
 ]
 
@@ -201,18 +201,15 @@ const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <Button variant="outline" size="sm" className={cn(isScrolled && "lg:hidden")}>
-                  <span>Войти</span>
-                </Button>
                 <Button
                   size="sm"
                   className={cn(
                     isScrolled
-                      ? "lg:inline-flex bg-orange-500 hover:bg-orange-600"
-                      : "hidden bg-orange-500 hover:bg-orange-600",
+                      ? "lg:inline-flex bg-orange-500 hover:bg-orange-600 text-white"
+                      : "hidden bg-orange-500 hover:bg-orange-600 text-white",
                   )}
                 >
-                  <span>Начать</span>
+                  <span>Получить консультацию</span>
                 </Button>
               </div>
             </div>
@@ -227,9 +224,9 @@ const Logo = ({ className }: { className?: string }) => {
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <div className="bg-orange-500 rounded-lg p-2">
-        <Code className="h-6 w-6 text-white" />
+        <Battery className="h-6 w-6 text-white" />
       </div>
-      <span className="text-xl font-bold">КодМастер</span>
+      <span className="text-xl font-bold">АккумТех</span>
     </div>
   )
 }
@@ -288,6 +285,7 @@ export default function SoftwareDevelopmentWebsite() {
           <div className="h-[80rem] absolute left-0 top-0 w-56 -rotate-45 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,hsla(25,100%,50%,.06)_0,hsla(25,100%,45%,.02)_80%,transparent_100%)] [translate:5%_-50%]" />
         </div>
 
+        {/* HERO */}
         <section>
           <div className="relative pt-24 md:pt-36">
             <div
@@ -298,10 +296,10 @@ export default function SoftwareDevelopmentWebsite() {
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 <AnimatedGroup variants={transitionVariants}>
                   <a
-                    href="#services"
+                    href="#about"
                     className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
                   >
-                    <span className="text-foreground text-sm">Индивидуальные решения для малого бизнеса</span>
+                    <span className="text-foreground text-sm">16 лет на рынке промышленных аккумуляторов</span>
                     <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
                     <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
@@ -317,14 +315,13 @@ export default function SoftwareDevelopmentWebsite() {
                   </a>
 
                   <h1 className="mt-8 max-w-4xl mx-auto text-balance text-6xl md:text-7xl lg:mt-16 xl:text-[5.25rem]">
-                    Трансформируйте бизнес с{" "}
+                    Аккумуляторы и зарядка для{" "}
                     <span className="inline-block text-orange-500 text-6xl md:text-7xl xl:text-[5.25rem] font-semibold">
-                      современным ПО
+                      складской техники
                     </span>
                   </h1>
                   <p className="mx-auto mt-8 max-w-2xl text-balance text-lg text-muted-foreground">
-                    Создаем масштабируемые и эффективные программные решения под ваши бизнес-задачи.
-                    От веб-приложений до мобильных приложений - помогаем малому бизнесу расти с помощью технологий.
+                    Продажа, скупка и восстановление свинцово-кислотных и литиевых аккумуляторов. Зарядные устройства и складская техника. Ионно-резонансная технология восстановления с остаточной ёмкостью до 85%.
                   </p>
                 </AnimatedGroup>
 
@@ -343,12 +340,12 @@ export default function SoftwareDevelopmentWebsite() {
                   className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
                 >
                   <div key={1} className="bg-orange-500/10 rounded-[14px] border border-orange-200 p-0.5">
-                    <Button size="lg" className="rounded-xl px-5 text-base bg-orange-500 hover:bg-orange-600">
-                      <span className="text-nowrap">Бесплатная консультация</span>
+                    <Button size="lg" className="rounded-xl px-5 text-base bg-orange-500 hover:bg-orange-600 text-white">
+                      <span className="text-nowrap">Получить консультацию</span>
                     </Button>
                   </div>
                   <Button key={2} size="lg" variant="ghost" className="h-10.5 rounded-xl px-5 hover:text-orange-500">
-                    <span className="text-nowrap">Наши работы</span>
+                    <span className="text-nowrap">Смотреть каталог</span>
                   </Button>
                 </AnimatedGroup>
               </div>
@@ -379,86 +376,39 @@ export default function SoftwareDevelopmentWebsite() {
                 </div>
               </div>
 
+              {/* Партнёры/клиенты */}
               <section className="bg-background pb-16 pt-16 md:pb-32">
                 <div className="group relative m-auto max-w-5xl px-6">
                   <div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
                     <a href="#contact" className="block text-sm duration-150 hover:opacity-75 text-orange-500">
-                      <span>Готовы начать проект?</span>
+                      <span>Оставить заявку</span>
                       <ChevronRight className="ml-1 inline-block size-3" />
                     </a>
                   </div>
                   <div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-5 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/nvidia.svg"
-                        alt="Логотип клиента"
-                        height="20"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Электропогрузчики</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-4 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/column.svg"
-                        alt="Логотип клиента"
-                        height="16"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Штабелёры</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-4 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/github.svg"
-                        alt="Логотип клиента"
-                        height="16"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Тележки ЭПТ</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-5 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/nike.svg"
-                        alt="Логотип клиента"
-                        height="20"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Тягачи</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-5 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/lemonsqueezy.svg"
-                        alt="Логотип клиента"
-                        height="20"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Ричтраки</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-4 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/laravel.svg"
-                        alt="Логотип клиента"
-                        height="16"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">ПЭТ-тележки</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-7 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/lilly.svg"
-                        alt="Логотип клиента"
-                        height="28"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Комплектовщики</span>
                     </div>
-                    <div className="flex">
-                      <img
-                        className="mx-auto h-6 w-fit dark:invert opacity-60"
-                        src="https://html.tailus.io/blocks/customers/openai.svg"
-                        alt="Логотип клиента"
-                        height="24"
-                        width="auto"
-                      />
+                    <div className="flex col-span-2 sm:col-span-1">
+                      <span className="mx-auto text-sm font-semibold text-muted-foreground opacity-60 self-center text-center">Ножничные подъёмники</span>
                     </div>
                   </div>
                 </div>
@@ -467,14 +417,15 @@ export default function SoftwareDevelopmentWebsite() {
           </div>
         </section>
 
-        <section className="bg-muted/50 py-16 md:py-32 dark:bg-transparent">
+        {/* ПРЕИМУЩЕСТВА */}
+        <section id="about" className="bg-muted/50 py-16 md:py-32 dark:bg-transparent">
           <div className="mx-auto max-w-5xl px-6">
             <div className="text-center">
               <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
-                Почему выбирают <span className="text-orange-500">КодМастер</span>
+                Почему выбирают <span className="text-orange-500">АккумТех</span>
               </h2>
               <p className="mt-4 text-muted-foreground">
-                Мы создаем качественные программные решения, которые помогают вашему бизнесу расти и преуспевать в цифровом мире.
+                16 лет работаем с промышленными аккумуляторами — знаем каждый нюанс восстановления и эксплуатации.
               </p>
             </div>
             <Card className="mx-auto mt-8 grid max-w-sm divide-y overflow-hidden shadow-zinc-950/5 border-orange-200 *:text-center md:mt-16 md:max-w-full md:grid-cols-3 md:divide-x md:divide-y-0">
@@ -483,13 +434,11 @@ export default function SoftwareDevelopmentWebsite() {
                   <CardDecorator>
                     <Zap className="size-6 text-orange-500" aria-hidden />
                   </CardDecorator>
-
-                  <h3 className="mt-6 font-medium">Быстрая разработка</h3>
+                  <h3 className="mt-6 font-medium">Ионно-резонансное восстановление</h3>
                 </CardHeader>
-
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Быстрое прототипирование и гибкий процесс разработки для скорейшего вывода вашего продукта на рынок.
+                    Мощная технология восстановления свинцовых аккумуляторов с остаточной ёмкостью до 85%. Батарея снова работает как новая.
                   </p>
                 </CardContent>
               </div>
@@ -497,15 +446,13 @@ export default function SoftwareDevelopmentWebsite() {
               <div className="group shadow-zinc-950/5">
                 <CardHeader className="pb-3">
                   <CardDecorator>
-                    <Settings2 className="size-6 text-orange-500" aria-hidden />
+                    <Battery className="size-6 text-orange-500" aria-hidden />
                   </CardDecorator>
-
-                  <h3 className="mt-6 font-medium">Масштабируемые решения</h3>
+                  <h3 className="mt-6 font-medium">Литий на 20–30 лет</h3>
                 </CardHeader>
-
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Созданы для роста вместе с вашим бизнесом - наши решения масштабируются по мере развития ваших потребностей.
+                    Поставляем литиевые АКБ мирового качества: 5 лет без потери ёмкости, срок службы — 20–30 лет при гарантии качества.
                   </p>
                 </CardContent>
               </div>
@@ -513,19 +460,278 @@ export default function SoftwareDevelopmentWebsite() {
               <div className="group shadow-zinc-950/5">
                 <CardHeader className="pb-3">
                   <CardDecorator>
-                    <Sparkles className="size-6 text-orange-500" aria-hidden />
+                    <RefreshCw className="size-6 text-orange-500" aria-hidden />
                   </CardDecorator>
-
-                  <h3 className="mt-6 font-medium">Современные технологии</h3>
+                  <h3 className="mt-6 font-medium">Обратный выкуп и Trade-in</h3>
                 </CardHeader>
-
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Используем новейшие технологии и лучшие практики, чтобы ваше ПО было готово к будущему.
+                    Выкупаем батареи в течение гарантийного срока и принимаем старые по Trade-in — выгоднее аренды в несколько раз.
                   </p>
                 </CardContent>
               </div>
             </Card>
+          </div>
+        </section>
+
+        {/* КАТАЛОГ */}
+        <section id="catalog" className="py-16 md:py-32">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
+                Каталог <span className="text-orange-500">товаров</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Широкий ассортимент для любой складской техники. Средние рыночные цены.
+              </p>
+            </div>
+
+            {/* Свинцово-кислотные */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span className="w-2 h-6 bg-orange-500 rounded-full inline-block"></span>
+                Свинцово-кислотные тяговые аккумуляторы
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { name: "АКБ 24В 210Ah (тяговый)", desc: "Для электропогрузчиков до 1.5т, стандартные габариты", price: "от 28 000 ₽" },
+                  { name: "АКБ 48В 400Ah (тяговый)", desc: "Для погрузчиков 2–3т и ричтраков, усиленный корпус", price: "от 65 000 ₽" },
+                  { name: "АКБ 80В 500Ah (тяговый)", desc: "Для тяжёлых погрузчиков и тягачей от 3т", price: "от 95 000 ₽" },
+                  { name: "Восстановленный АКБ 24В", desc: "Ёмкость до 85% после ионно-резонансного восстановления", price: "от 12 000 ₽" },
+                  { name: "Восстановленный АКБ 48В", desc: "Ёмкость до 85%, гарантия на восстановление", price: "от 28 000 ₽" },
+                  { name: "Скупка АКБ б/у", desc: "Принимаем отработанные свинцовые аккумуляторы", price: "до 5 000 ₽" },
+                ].map((item, i) => (
+                  <Card key={i} className="border-orange-100 hover:border-orange-300 transition-colors">
+                    <CardHeader className="pb-2">
+                      <div className="flex items-start justify-between">
+                        <h4 className="font-medium text-sm leading-snug">{item.name}</h4>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground mb-3">{item.desc}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-orange-500 font-bold">{item.price}</span>
+                        <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white text-xs">
+                          Заказать
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Литиевые */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span className="w-2 h-6 bg-orange-500 rounded-full inline-block"></span>
+                Литиевые / LFP аккумуляторы
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { name: "LFP 24В 200Ah Li-Ion", desc: "Литий железо фосфат, срок службы 20–30 лет, BMS в комплекте", price: "от 85 000 ₽" },
+                  { name: "LFP 48В 300Ah Li-Ion", desc: "Для погрузчиков 2–3т, быстрая зарядка за 2 часа", price: "от 145 000 ₽" },
+                  { name: "LFP 80В 400Ah Li-Ion", desc: "Тяжёлая серия для крупной складской техники", price: "от 220 000 ₽" },
+                ].map((item, i) => (
+                  <Card key={i} className="border-orange-100 hover:border-orange-300 transition-colors">
+                    <CardHeader className="pb-2">
+                      <h4 className="font-medium text-sm leading-snug">{item.name}</h4>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground mb-3">{item.desc}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-orange-500 font-bold">{item.price}</span>
+                        <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white text-xs">
+                          Заказать
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Зарядные устройства */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span className="w-2 h-6 bg-orange-500 rounded-full inline-block"></span>
+                Зарядные устройства
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { name: "Зарядник 24В 30А (свинец)", desc: "Автоматическое зарядное для свинцовых АКБ, таймер", price: "от 12 000 ₽" },
+                  { name: "Зарядник 48В 50А (свинец)", desc: "Промышленное зарядное, защита от переполюсовки", price: "от 22 000 ₽" },
+                  { name: "Зарядник 48В 30А (литий)", desc: "Совместим с LFP и Li-Ion, CC/CV алгоритм", price: "от 18 000 ₽" },
+                  { name: "Зарядник 80В 60А (свинец)", desc: "Для тяжёлых аккумуляторов, кабель в комплекте", price: "от 35 000 ₽" },
+                  { name: "Скупка зарядников б/у", desc: "Принимаем рабочие и неисправные зарядные устройства", price: "до 8 000 ₽" },
+                ].map((item, i) => (
+                  <Card key={i} className="border-orange-100 hover:border-orange-300 transition-colors">
+                    <CardHeader className="pb-2">
+                      <h4 className="font-medium text-sm leading-snug">{item.name}</h4>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground mb-3">{item.desc}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-orange-500 font-bold">{item.price}</span>
+                        <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white text-xs">
+                          Заказать
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Складская техника */}
+            <div>
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span className="w-2 h-6 bg-orange-500 rounded-full inline-block"></span>
+                Складская техника
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { name: "Электропогрузчик 1.5т", desc: "Тяговый аккумулятор 24В в комплекте, пробег до 8 часов", price: "от 480 000 ₽" },
+                  { name: "Электрический штабелёр 1т", desc: "Подъём до 3.5м, АКБ 24В, компактные размеры", price: "от 180 000 ₽" },
+                  { name: "ЭПТ-тележка 2т", desc: "Электрическая подъёмная тележка, горизонтальный транспорт", price: "от 95 000 ₽" },
+                ].map((item, i) => (
+                  <Card key={i} className="border-orange-100 hover:border-orange-300 transition-colors">
+                    <CardHeader className="pb-2">
+                      <h4 className="font-medium text-sm leading-snug">{item.name}</h4>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs text-muted-foreground mb-3">{item.desc}</p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-orange-500 font-bold">{item.price}</span>
+                        <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white text-xs">
+                          Заказать
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* УСЛУГИ */}
+        <section id="services" className="bg-muted/50 py-16 md:py-32 dark:bg-transparent">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
+                Наши <span className="text-orange-500">услуги</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Полный цикл работы с аккумуляторами — от диагностики до утилизации.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  icon: <Zap className="size-8 text-orange-500" />,
+                  title: "Ремонт и восстановление АКБ",
+                  desc: "Диагностика, десульфатация, ионно-резонансное восстановление свинцово-кислотных аккумуляторов. Остаточная ёмкость до 85%.",
+                  price: "от 3 500 ₽",
+                },
+                {
+                  icon: <Battery className="size-8 text-orange-500" />,
+                  title: "Обратный выкуп батарей",
+                  desc: "Программа выкупа накопителей в течение гарантийного срока. Выгоднее аренды такой же батареи в несколько раз.",
+                  price: "по договору",
+                },
+                {
+                  icon: <Recycle className="size-8 text-orange-500" />,
+                  title: "Trade-in старых аккумуляторов",
+                  desc: "Сдайте старый аккумулятор и получите скидку на новый. Экологичная утилизация с заботой об окружающей среде.",
+                  price: "скидка до 20%",
+                },
+                {
+                  icon: <RefreshCw className="size-8 text-orange-500" />,
+                  title: "Диагностика и техобслуживание",
+                  desc: "Проверим состояние аккумулятора, дадим рекомендации по эксплуатации и продлим срок службы вашей батареи.",
+                  price: "от 1 500 ₽",
+                },
+              ].map((service, i) => (
+                <Card key={i} className="border-orange-100 hover:border-orange-300 transition-colors">
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className="bg-orange-50 dark:bg-orange-950 rounded-lg p-3 flex-shrink-0">
+                        {service.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">{service.title}</h3>
+                        <span className="text-orange-500 font-bold text-sm">{service.price}</span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{service.desc}</p>
+                    <Button className="mt-4 bg-orange-500 hover:bg-orange-600 text-white" size="sm">
+                      Узнать подробнее
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* О КОМПАНИИ */}
+        <section className="py-16 md:py-32">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-balance text-4xl font-semibold lg:text-5xl">
+                О <span className="text-orange-500">компании</span>
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                {
+                  title: "16 лет восстановления АКБ",
+                  text: "Наша компания занимается восстановлением свинцовых аккумуляторов уже 16 лет. Благодаря мощной ионно-резонансной технологии наши восстановленные батареи имеют большую остаточную ёмкость — до 85%.",
+                },
+                {
+                  title: "Литиевые АКБ мирового уровня",
+                  text: "Мы поставляем литиевые аккумуляторы с гарантией качества мирового уровня. Батарея работает как новая 5 лет без потери ёмкости, а прослужит ещё 20–30 лет.",
+                },
+                {
+                  title: "Программа обратного выкупа",
+                  text: "Мы нацелены на долгосрочное сотрудничество и предлагаем программу выкупа накопителей в течение гарантийного срока — это обеспечивает выгоду приобретения батареи в несколько раз по сравнению с арендой.",
+                },
+                {
+                  title: "Trade-in — экология и выгода",
+                  text: "Наша программа Trade-in поможет вам утилизировать старые аккумуляторы, заботясь об окружающей среде и переходя на современные, более экологичные технологии.",
+                },
+              ].map((item, i) => (
+                <div key={i} className="border border-orange-100 rounded-xl p-6 hover:border-orange-300 transition-colors">
+                  <h3 className="font-semibold text-lg mb-3 text-orange-500">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section id="contact" className="bg-muted/50 py-16 md:py-24 dark:bg-transparent">
+          <div className="mx-auto max-w-3xl px-6 text-center">
+            <h2 className="text-balance text-4xl font-semibold lg:text-5xl mb-4">
+              Нужна помощь с выбором <span className="text-orange-500">аккумулятора?</span>
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Расскажите о вашей технике — подберём подходящий вариант, рассчитаем стоимость и доставим в удобное время.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="bg-orange-500/10 rounded-[14px] border border-orange-200 p-0.5">
+                <Button size="lg" className="rounded-xl px-8 text-base bg-orange-500 hover:bg-orange-600 text-white">
+                  Получить консультацию
+                </Button>
+              </div>
+              <Button size="lg" variant="outline" className="rounded-xl px-8 border-orange-200 hover:text-orange-500">
+                Рассчитать стоимость
+              </Button>
+            </div>
           </div>
         </section>
       </main>
@@ -537,7 +743,7 @@ export default function SoftwareDevelopmentWebsite() {
             <div className="space-y-4 sm:col-span-2 lg:col-span-1">
               <Logo />
               <p className="text-sm text-muted-foreground max-w-xs">
-                Трансформируйте свой бизнес с помощью индивидуальных программных решений. Создаем масштабируемые приложения, которые растут вместе с вашим успехом.
+                Продажа, скупка и восстановление промышленных аккумуляторов. 16 лет на рынке складской техники.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
@@ -550,142 +756,67 @@ export default function SoftwareDevelopmentWebsite() {
                     <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
                   </svg>
                 </a>
-                <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M15.402 21v-6.966h2.333l.349-2.708h-2.682V9.598c0-.784.218-1.319 1.342-1.319h1.434V5.857a19.188 19.188 0 0 0-2.09-.107c-2.067 0-3.482 1.262-3.482 3.58v1.996h-2.338v2.708h2.338V21H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4.598z"/>
-                  </svg>
-                </a>
               </div>
             </div>
 
-            {/* Services */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-foreground">Услуги</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Веб-разработка
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Мобильные приложения
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Заказное ПО
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Разработка API
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Облачные решения
-                  </a>
-                </li>
+            {/* Каталог */}
+            <div>
+              <h3 className="text-sm font-semibold mb-4">Каталог</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li><a href="#catalog" className="hover:text-orange-500 transition-colors">Свинцово-кислотные АКБ</a></li>
+                <li><a href="#catalog" className="hover:text-orange-500 transition-colors">Литиевые / LFP АКБ</a></li>
+                <li><a href="#catalog" className="hover:text-orange-500 transition-colors">Зарядные устройства</a></li>
+                <li><a href="#catalog" className="hover:text-orange-500 transition-colors">Складская техника</a></li>
               </ul>
             </div>
 
-            {/* Company */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-foreground">Компания</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    О нас
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Наша команда
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Карьера
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Кейсы
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                    Блог
-                  </a>
-                </li>
+            {/* Услуги */}
+            <div>
+              <h3 className="text-sm font-semibold mb-4">Услуги</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li><a href="#services" className="hover:text-orange-500 transition-colors">Ремонт и восстановление АКБ</a></li>
+                <li><a href="#services" className="hover:text-orange-500 transition-colors">Обратный выкуп</a></li>
+                <li><a href="#services" className="hover:text-orange-500 transition-colors">Trade-in</a></li>
+                <li><a href="#services" className="hover:text-orange-500 transition-colors">Диагностика</a></li>
               </ul>
             </div>
 
-            {/* Contact */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-foreground">Контакты</h3>
+            {/* Контакты */}
+            <div>
+              <h3 className="text-sm font-semibold mb-4">Контакты</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-center space-x-2">
                   <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span className="break-all">info@kodmaster.ru</span>
+                  <span className="break-all">info@akkumtech.ru</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <svg className="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <span>+7 (495) 123-45-67</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <svg className="h-4 w-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>
-                    ул. Технопарковая, 15
-                    <br />
-                    Москва, 123456
-                  </span>
+                  <span>Москва, Складской пер., 12</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Bottom section */}
           <div className="mt-12 pt-8 border-t border-orange-200">
             <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-              <div className="text-sm text-muted-foreground">2024 КодМастер. Все права защищены.</div>
+              <div className="text-sm text-muted-foreground">© 2026 АккумТех. Все права защищены.</div>
               <div className="flex flex-wrap justify-center sm:justify-end gap-x-6 gap-y-2 text-sm">
                 <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
                   Политика конфиденциальности
                 </a>
                 <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
                   Условия использования
-                </a>
-                <a href="#" className="text-muted-foreground hover:text-orange-500 transition-colors">
-                  Политика cookies
                 </a>
               </div>
             </div>
