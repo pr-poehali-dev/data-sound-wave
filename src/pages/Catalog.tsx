@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Battery, X, SlidersHorizontal, Search, ArrowLeft } from "lucide-react"
+import { Battery, X, SlidersHorizontal, Search, ArrowLeft, ArrowRight } from "lucide-react"
 import Icon from "@/components/ui/icon"
 import { cn } from "@/lib/utils"
 
@@ -255,9 +255,10 @@ export default function Catalog() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {products.map((p) => (
-              <div
+              <Link
                 key={p.id}
-                className="rounded-2xl border border-orange-100 hover:border-orange-300 bg-card overflow-hidden transition-all hover:shadow-lg hover:shadow-orange-500/10 group"
+                to={`/catalog/${p.id}`}
+                className="rounded-2xl border border-orange-100 hover:border-orange-300 bg-card overflow-hidden transition-all hover:shadow-lg hover:shadow-orange-500/10 group flex flex-col"
               >
                 {/* Фото */}
                 <div className="aspect-[4/3] bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900 overflow-hidden relative">
@@ -284,7 +285,7 @@ export default function Catalog() {
                 </div>
 
                 {/* Инфо */}
-                <div className="p-4">
+                <div className="p-4 flex flex-col flex-1">
                   <div className="flex flex-wrap gap-1 mb-2">
                     <span className="text-xs bg-orange-50 dark:bg-orange-950 text-orange-600 px-2 py-0.5 rounded-full border border-orange-100">
                       {CATEGORY_LABELS[p.category] || p.category}
@@ -309,12 +310,13 @@ export default function Catalog() {
                         <span className="text-xs text-muted-foreground ml-1">до {formatPrice(p.price_to)}</span>
                       )}
                     </div>
+                    <ArrowRight className="size-4 text-muted-foreground group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all" />
                   </div>
-                  <button className="mt-3 w-full py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors">
-                    Узнать цену
-                  </button>
+                  <div className="mt-3 w-full py-2 rounded-xl bg-orange-500 text-white text-sm font-medium text-center group-hover:bg-orange-600 transition-colors">
+                    Подробнее
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
