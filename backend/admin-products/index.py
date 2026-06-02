@@ -1,5 +1,6 @@
 """
-Админка каталога Аккумофф: создание, обновление, удаление товаров и загрузка фото
+Админка каталога Аккумофф: создание, обновление, удаление товаров и загрузка фото.
+Роутинг через query-параметры: ?action=upload-image, ?id=X
 """
 import json
 import os
@@ -46,7 +47,10 @@ def handler(event: dict, context) -> dict:
         }
 
     method = event.get("httpMethod")
-    path = event.get("path", "/")
+    params = event.get("queryStringParameters") or {}
+    action = params.get("action", "")
+    product_id = params.get("id", "")
+
     body = {}
     if event.get("body"):
         body = json.loads(event["body"])
@@ -55,13 +59,14 @@ def handler(event: dict, context) -> dict:
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     try:
-        # Загрузка фото: POST /upload-image
-        if method == "POST" and "/upload-image" in path:
+        # Загрузка фото: POST ?action=upload-image
+        if method == "POST" and action == "upload-image":
             image_b64 = body.get("image")
             filename = body.get("filename", "photo.jpg")
             content_type = body.get("content_type", "image/jpeg")
 
             if not image_b64:
+                cur.close(); conn.close()
                 return {"statusCode": 400, "headers": cors, "body": json.dumps({"error": "No image provided"})}
 
             image_data = base64.b64decode(image_b64)
@@ -70,15 +75,14 @@ def handler(event: dict, context) -> dict:
             s3.put_object(Bucket="files", Key=key, Body=image_data, ContentType=content_type)
             cdn_url = f"https://cdn.poehali.dev/projects/{os.environ['AWS_ACCESS_KEY_ID']}/bucket/{key}"
 
-            cur.close()
-            conn.close()
+            cur.close(); conn.close()
             return {
                 "statusCode": 200,
                 "headers": {**cors, "Content-Type": "application/json"},
                 "body": json.dumps({"url": cdn_url}),
             }
 
-        # Создать товар: POST /
+        # Создать товар: POST (без id)
         if method == "POST":
             cur.execute(
                 """INSERT INTO products (name, category, subcategory, voltage, capacity, price_from, price_to, description, condition, image_url, in_stock)
@@ -92,20 +96,17 @@ def handler(event: dict, context) -> dict:
                 ),
             )
             product = dict(cur.fetchone())
-            conn.commit()
-            cur.close()
-            conn.close()
+            conn.commit(); cur.close(); conn.close()
             return {
                 "statusCode": 201,
                 "headers": {**cors, "Content-Type": "application/json"},
                 "body": json.dumps({"product": product}, default=str),
             }
 
-        # Обновить товар: PUT /{id}
+        # Обновить товар: PUT ?id=X
         if method == "PUT":
-            parts = path.strip("/").split("/")
-            product_id = parts[-1] if parts else None
             if not product_id:
+                cur.close(); conn.close()
                 return {"statusCode": 400, "headers": cors, "body": json.dumps({"error": "No product id"})}
 
             cur.execute(
@@ -122,9 +123,7 @@ def handler(event: dict, context) -> dict:
                 ),
             )
             product = cur.fetchone()
-            conn.commit()
-            cur.close()
-            conn.close()
+            conn.commit(); cur.close(); conn.close()
             if not product:
                 return {"statusCode": 404, "headers": cors, "body": json.dumps({"error": "Not found"})}
             return {
@@ -133,42 +132,35 @@ def handler(event: dict, context) -> dict:
                 "body": json.dumps({"product": dict(product)}, default=str),
             }
 
-        # Удалить товар: DELETE /{id}
+        # Удалить товар: DELETE ?id=X
         if method == "DELETE":
-            parts = path.strip("/").split("/")
-            product_id = parts[-1] if parts else None
             if not product_id:
+                cur.close(); conn.close()
                 return {"statusCode": 400, "headers": cors, "body": json.dumps({"error": "No product id"})}
             cur.execute("DELETE FROM products WHERE id=%s", (int(product_id),))
-            conn.commit()
-            cur.close()
-            conn.close()
+            conn.commit(); cur.close(); conn.close()
             return {
                 "statusCode": 200,
                 "headers": {**cors, "Content-Type": "application/json"},
                 "body": json.dumps({"ok": True}),
             }
 
-        # Список всех товаров: GET /
+        # Список всех товаров: GET
         if method == "GET":
             cur.execute("SELECT * FROM products ORDER BY created_at DESC")
             products = [dict(p) for p in cur.fetchall()]
-            cur.close()
-            conn.close()
+            cur.close(); conn.close()
             return {
                 "statusCode": 200,
                 "headers": {**cors, "Content-Type": "application/json"},
                 "body": json.dumps({"products": products}, default=str),
             }
 
-        cur.close()
-        conn.close()
+        cur.close(); conn.close()
         return {"statusCode": 405, "headers": cors, "body": json.dumps({"error": "Method not allowed"})}
 
     except Exception as e:
-        conn.rollback()
-        cur.close()
-        conn.close()
+        conn.rollback(); cur.close(); conn.close()
         return {
             "statusCode": 500,
             "headers": {**cors, "Content-Type": "application/json"},

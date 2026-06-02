@@ -91,7 +91,7 @@ export default function Admin() {
     return new Promise((resolve, reject) => {
       reader.onload = async (e) => {
         const base64 = (e.target?.result as string).split(",")[1]
-        const r = await fetch(`${ADMIN_URL}/upload-image`, {
+        const r = await fetch(`${ADMIN_URL}?action=upload-image`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "X-Admin-Token": ADMIN_TOKEN },
           body: JSON.stringify({ image: base64, filename: file.name, content_type: file.type }),
@@ -124,7 +124,7 @@ export default function Admin() {
         subcategory: form.subcategory || null,
         image_url: imageUrl || null,
       }
-      const url = editId ? `${ADMIN_URL}/${editId}` : ADMIN_URL
+      const url = editId ? `${ADMIN_URL}?id=${editId}` : ADMIN_URL
       const method = editId ? "PUT" : "POST"
       const r = await fetch(url, {
         method,
@@ -145,7 +145,7 @@ export default function Admin() {
   async function handleDelete(id: number) {
     if (!confirm("Удалить товар?")) return
     setDeleting(id)
-    await fetch(`${ADMIN_URL}/${id}`, {
+    await fetch(`${ADMIN_URL}?id=${id}`, {
       method: "DELETE",
       headers: { "X-Admin-Token": ADMIN_TOKEN },
     })
