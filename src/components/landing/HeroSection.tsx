@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { GridMotion } from "@/components/ui/grid-motion"
 import { cn } from "@/lib/utils"
 import { Button, AnimatedGroup, Logo, transitionVariants } from "./shared"
+import { ContactModal } from "./ContactModal"
 
 // ─── Menu items ─────────────────────────────────────────────────────────────
 
@@ -19,6 +20,7 @@ const menuItems = [
 export const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
+  const [modalOpen, setModalOpen] = React.useState(false)
 
   React.useEffect(() => {
     if (typeof window === "undefined") return
@@ -85,6 +87,7 @@ export const HeroHeader = () => {
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
                 <Button
                   size="sm"
+                  onClick={() => setModalOpen(true)}
                   className={cn(
                     isScrolled
                       ? "lg:inline-flex bg-orange-500 hover:bg-orange-600 text-white"
@@ -98,6 +101,12 @@ export const HeroHeader = () => {
           </div>
         </div>
       </nav>
+      <ContactModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Получить консультацию"
+        source="navbar"
+      />
     </header>
   )
 }
@@ -135,7 +144,10 @@ const gridItems = [
 
 // ─── HeroSection ─────────────────────────────────────────────────────────────
 
-export const HeroSection = () => (
+export const HeroSection = () => {
+  const [modalOpen, setModalOpen] = React.useState(false)
+
+  return (
   <section>
     <div className="relative pt-24 md:pt-36">
       <div
@@ -190,7 +202,7 @@ export const HeroSection = () => (
             className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
           >
             <div key={1} className="bg-orange-500/10 rounded-[14px] border border-orange-200 p-0.5">
-              <Button size="lg" className="rounded-xl px-5 text-base bg-orange-500 hover:bg-orange-600 text-white">
+              <Button onClick={() => setModalOpen(true)} size="lg" className="rounded-xl px-5 text-base bg-orange-500 hover:bg-orange-600 text-white">
                 <span className="text-nowrap">Получить консультацию</span>
               </Button>
             </div>
@@ -267,5 +279,12 @@ export const HeroSection = () => (
         </section>
       </AnimatedGroup>
     </div>
+    <ContactModal
+      open={modalOpen}
+      onClose={() => setModalOpen(false)}
+      title="Получить консультацию"
+      source="hero"
+    />
   </section>
-)
+  )
+}

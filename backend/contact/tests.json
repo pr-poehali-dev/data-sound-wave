@@ -1,0 +1,22 @@
+{
+  "tests": [
+    {
+      "name": "Отправить заявку",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест", "phone": "+7 999 000 00 00", "message": "Нужна консультация"},
+      "expectedStatus": 200,
+      "expectedBody": {"ok": true},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Заявка без телефона — ошибка",
+      "method": "POST",
+      "path": "/",
+      "body": {"name": "Тест"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "Укажите имя и телефон"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
