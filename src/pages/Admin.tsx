@@ -1,14 +1,28 @@
 import * as React from "react"
+import { Link } from "react-router-dom"
+import { Battery, ArrowLeft, Plus } from "lucide-react"
 import { LoginScreen } from "./admin/LoginScreen"
 import { ProductTable } from "./admin/ProductTable"
 import { ProductModal } from "./admin/ProductModal"
+import { ContactsTab } from "./admin/ContactsTab"
+import { EmailSettingsTab } from "./admin/EmailSettingsTab"
 import { ADMIN_URL, ADMIN_TOKEN, Product, emptyForm } from "./admin/types"
+import { cn } from "@/lib/utils"
+
+type Tab = "products" | "contacts" | "email"
+
+const TABS: { key: Tab; label: string }[] = [
+  { key: "contacts", label: "Заявки" },
+  { key: "products", label: "Товары" },
+  { key: "email", label: "Email-уведомления" },
+]
 
 export default function Admin() {
   const [authed, setAuthed] = React.useState(false)
   const [password, setPassword] = React.useState("")
   const [showPass, setShowPass] = React.useState(false)
   const [authError, setAuthError] = React.useState("")
+  const [tab, setTab] = React.useState<Tab>("contacts")
 
   const [products, setProducts] = React.useState<Product[]>([])
   const [loading, setLoading] = React.useState(false)
@@ -101,7 +115,6 @@ export default function Admin() {
       if (imageFile) {
         imageUrl = await uploadImage(imageFile)
       }
-
       const payload = {
         ...form,
         voltage: form.voltage ? parseInt(form.voltage) : null,
@@ -111,7 +124,6 @@ export default function Admin() {
         subcategory: form.subcategory || null,
         image_url: imageUrl || null,
       }
-
       const url = editId ? `${ADMIN_URL}/${editId}` : ADMIN_URL
       const method = editId ? "PUT" : "POST"
       const r = await fetch(url, {
@@ -145,8 +157,7 @@ export default function Admin() {
     const file = e.target.files?.[0]
     if (!file) return
     setImageFile(file)
-    const url = URL.createObjectURL(file)
-    setImagePreview(url)
+    setImagePreview(URL.createObjectURL(file))
   }
 
   function handleRemoveImage() {
@@ -169,15 +180,79 @@ export default function Admin() {
   }
 
   return (
-    <>
-      <ProductTable
-        products={products}
-        loading={loading}
-        deleting={deleting}
-        onOpenNew={openNew}
-        onOpenEdit={openEdit}
-        onDelete={handleDelete}
-      />
+    <div className="min-h-screen bg-background">
+      {/* Шапка */}
+      <header className="sticky top-0 z-20 bg-background/80 backdrop-blur border-b border-orange-100">
+        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Link to="/" className="text-muted-foreground hover:text-orange-500 transition-colors">
+              <ArrowLeft className="size-4" />
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="bg-orange-500 rounded-lg p-1.5">
+                <Battery className="h-5 w-5 text-white" />
+              </div>
+              <span className="font-bold">Аккумофф</span>
+              <span className="text-muted-foreground text-sm">/ Админка</span>
+            </div>
+          </div>
+          {tab === "products" && (
+            <button
+              onClick={openNew}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium transition-colors"
+            >
+              <Plus className="size-4" />
+              Добавить товар
+            </button>
+          )}
+        </div>
+
+        {/* Вкладки */}
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="flex gap-0 border-b border-orange-50 -mb-px">
+            {TABS.map(t => (
+              <button
+                key={t.key}
+                onClick={() => { setTab(t.key); if (t.key === "products") fetchProducts() }}
+                className={cn(
+                  "px-4 py-2.5 text-sm font-medium border-b-2 transition-colors",
+                  tab === t.key
+                    ? "border-orange-500 text-orange-500"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      {/* Контент */}
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        {tab === "contacts" && <ContactsTab />}
+
+        {tab === "products" && (
+          <>
+            <div className="mb-4 flex items-center justify-between">
+              <h1 className="text-2xl font-bold">Товары каталога</h1>
+              <span className="text-sm text-muted-foreground">{products.length} товаров</span>
+            </div>
+            <ProductTable
+              products={products}
+              loading={loading}
+              deleting={deleting}
+              onOpenNew={openNew}
+              onOpenEdit={openEdit}
+              onDelete={handleDelete}
+              embedded
+            />
+          </>
+        )}
+
+        {tab === "email" && <EmailSettingsTab />}
+      </div>
+
       {modalOpen && (
         <ProductModal
           editId={editId}
@@ -193,6 +268,6 @@ export default function Admin() {
           onRemoveImage={handleRemoveImage}
         />
       )}
-    </>
+    </div>
   )
 }

@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "Без токена — 401",
+      "method": "GET",
+      "path": "/?resource=contacts",
+      "expectedStatus": 401,
+      "expectedBody": {"error": "Unauthorized"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Список заявок",
+      "method": "GET",
+      "path": "/?resource=contacts",
+      "headers": {"X-Admin-Token": "akkumoff-admin-2026"},
+      "expectedStatus": 200,
+      "expectedBody": {"contacts": []},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Список email-получателей",
+      "method": "GET",
+      "path": "/?resource=emails",
+      "headers": {"X-Admin-Token": "akkumoff-admin-2026"},
+      "expectedStatus": 200,
+      "expectedBody": {"emails": []},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
